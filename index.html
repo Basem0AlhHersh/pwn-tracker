@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>pwn-tracker — portswigger academy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <canvas id="matrixCanvas"></canvas>
+  <div class="scanlines"></div>
+
+  <div id="app">
+    <div class="view" id="view-dashboard">
+      <div class="dashboard">
+        <nav class="dash-nav">
+          <div class="dash-nav-brand">
+            <span class="skull-logo">☠</span>
+            <span class="ps1">root@pwn</span>:<span class="path">~</span><span class="prompt-sym">#</span>
+            <span class="glitch" data-text="portswigger.track">portswigger.track</span>
+          </div>
+          <div class="dash-nav-links">
+            <span class="dash-nav-status" id="dashStatus">connected — 0/274</span>
+            <button class="dash-btn" id="enterLabsBtn">enter labs →</button>
+          </div>
+        </nav>
+
+        <div class="dash-hero">
+          <h1 class="dash-title glitch" data-text="PORT SWIGGER ACADEMY">PORT SWIGGER ACADEMY</h1>
+          <p class="dash-subtitle typewriter" id="dashSubtitle"></p>
+        </div>
+
+        <div class="dash-stats" id="dashStats">
+          <div class="stat-ring-card" id="statTotal">
+            <svg class="stat-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg ring-fg-cyan" cx="60" cy="60" r="52" data-pct="0"/>
+            </svg>
+            <div class="stat-ring-text"><span class="stat-ring-num" id="statTotalNum">0</span><span class="stat-ring-label">total</span></div>
+          </div>
+          <div class="stat-ring-card" id="statApprentice">
+            <svg class="stat-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg ring-fg-green" cx="60" cy="60" r="52" data-pct="0"/>
+            </svg>
+            <div class="stat-ring-text"><span class="stat-ring-num" id="statApprenticeNum">0</span><span class="stat-ring-label">apprentice</span></div>
+          </div>
+          <div class="stat-ring-card" id="statPractitioner">
+            <svg class="stat-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg ring-fg-amber" cx="60" cy="60" r="52" data-pct="0"/>
+            </svg>
+            <div class="stat-ring-text"><span class="stat-ring-num" id="statPractitionerNum">0</span><span class="stat-ring-label">practitioner</span></div>
+          </div>
+          <div class="stat-ring-card" id="statExpert">
+            <svg class="stat-ring" viewBox="0 0 120 120">
+              <circle class="ring-bg" cx="60" cy="60" r="52"/>
+              <circle class="ring-fg ring-fg-red" cx="60" cy="60" r="52" data-pct="0"/>
+            </svg>
+            <div class="stat-ring-text"><span class="stat-ring-num" id="statExpertNum">0</span><span class="stat-ring-label">expert</span></div>
+          </div>
+        </div>
+
+        <div class="dash-phases" id="dashPhases"></div>
+
+        <div class="dash-footer">
+          <span class="dash-footer-text">root@pwn:~/portswigger$ ./tracker --all</span>
+          <span class="dash-footer-cursor blinking-cursor">_</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="view" id="view-labs">
+      <div class="labs-app">
+        <header class="labs-topbar">
+          <button class="back-btn" id="backToDashBtn">← dashboard</button>
+          <button class="hamburger-btn" id="labsMenuToggle">☰</button>
+          <span class="skull-logo" style="font-size:1rem;">☠</span>
+          <div class="labs-prompt">
+            <span class="ps1">root@pwn</span>:<span class="path" id="labsPath">~/portswigger</span><span class="prompt-sym">$</span>
+            <span class="labs-prompt-cmd" id="labsPromptCmd">ls -la</span>
+          </div>
+          <div class="labs-topbar-right">
+            <span class="labs-progress-text" id="labsProgressText">0/274</span>
+          </div>
+        </header>
+
+        <div class="labs-body">
+          <aside class="labs-sidebar" id="labsSidebar">
+            <div class="labs-sidebar-header">
+              <span class="ps1">root@pwn</span>:<span class="path">~</span>$ <span class="cmd">tree --topics</span>
+            </div>
+            <div class="labs-sidebar-content" id="sidebarContent"></div>
+          </aside>
+
+          <main class="labs-main" id="labsMain">
+            <div class="labs-main-inner" id="labsMainInner"></div>
+          </main>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+  </div>
+
+  <div class="loading-screen" id="loadingScreen">
+    <div class="loading-text">
+      <span class="skull-logo" style="font-size:2.5rem;display:block;margin-bottom:0.5rem;">☠</span>
+      <span class="ps1">root@pwn</span>:<span class="path">~</span>$ <span class="loading-cmd">init --system</span>
+      <span class="blinking-cursor loading-cursor">_</span>
+    </div>
+    <div class="loading-bar-track"><div class="loading-bar-inner" id="loadingBar"></div></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
